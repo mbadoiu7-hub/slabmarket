@@ -1,5 +1,6 @@
 [build]
 builder = "nixpacks"
+installCommand = "npm install"
 
 [deploy]
 startCommand = "npx prisma db push && npx prisma db seed && npm run start"
