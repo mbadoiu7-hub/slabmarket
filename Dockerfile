@@ -1,4 +1,6 @@
 FROM node:20-alpine AS base
+# Install OpenSSL 1.1 compat for Prisma
+RUN apk add --no-cache openssl1.1-compat
 
 # Install dependencies
 FROM base AS deps
@@ -29,8 +31,6 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/prisma ./prisma
-
-# Copy Prisma engine and CLI from deps (pinned to v5, not latest v7)
 COPY --from=deps /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=deps /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=deps /app/node_modules/prisma ./node_modules/prisma
