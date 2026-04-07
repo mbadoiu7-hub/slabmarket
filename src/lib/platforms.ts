@@ -1,39 +1,56 @@
-export const PLATFRMSS= {
+export const PLATFORMS = {
   slab: {
-    processTitle: 'Buy on SlabGrades',
-    stepLabels: ['Confirm Listing', 'Vault Release', 'Shipped'],
-    steps: [
-      { title: 'Confirm', description: 'Confirm your purchase' },
-      { title: 'Release', description: 'Vault release the card' },
-      { title: 'Shipped', description: 'Card has been handed to courier' },
-    ],
-    notice: 'SlabMarket handles vaulting, legal paperwork, and shipping to you',
+    name: 'SlabMarket',
+    tag: 'SLAB',
+    color: 'orange',
+    buyerFee: '0%',
+    sellerFee: '1%',
+    shipping: 'Free insured shipping',
+    steps: ['confirm', 'pay', 'shipped'],
+    stepLabels: ['Confirm', 'Pay', 'Shipped'],
+    notice:
+      'Native SlabMarket listing. You pay the exact listed price with zero buyer fees. Insured shipping included.',
+    processTitle: 'Direct Purchase',
   },
   ebay: {
-    processTitle: 'Review & Accept Offer',
-    stepLabels: ['Review', 'Pay', 'Shipped'],
-    steps: [
-      { title: 'Review', description: 'Review the eBay offer' },
-      { title: 'Pay', description: 'Send payment to seller' },
-      { title: 'Shipped', description: 'Await shipment from seller" },
-    ],
-    notice: 'You will cordinate directly with the eBay seller to complete the transaction',
+    name: 'eBay',
+    tag: 'EBAY',
+    color: 'purple',
+    buyerFee: '~3%',
+    sellerFee: '13%',
+    shipping: 'Varies by seller',
+    steps: ['confirm', 'pay', 'we-buy', 'shipped'],
+    stepLabels: ['Confirm', 'Pay Us', 'We Buy', 'Shipped'],
+    notice:
+      'We buy this from eBay on your behalf. The ~3% buyer fee covers eBay transaction costs and buyer protection through our escrow service.',
+    processTitle: 'Buy via eBay (on your behalf)',
   },
-  pwcc: {@   processTitle: 'Await PWCC Processing',
-    stepLabels: ['Contact PWCC', 'Shipped'],
-    steps: [
-      { title: 'Contact', description: 'Contact PWCC directly' },
-      { title: 'Shipped', description: 'Await shipment' },
-    ],
-    notice: 'PWCC player exchanges handle all logistics',
+  pwcc: {
+    name: 'PWCC',
+    tag: 'PWCC',
+    color: 'green',
+    buyerFee: '5%',
+    sellerFee: '8%',
+    shipping: 'Vaulted → shipped',
+    steps: ['confirm', 'pay', 'vault-release', 'shipped'],
+    stepLabels: ['Confirm', 'Pay Us', 'Vault Release', 'Shipped'],
+    notice:
+      'This slab is vaulted at PWCC. We purchase and request vault release on your behalf. Expect 5-7 business days for shipping.',
+    processTitle: 'Buy via PWCC (vaulted)',
   },
-  cm:  {
-    processTitle: 'Purchase On CardMarket',
-    stepLabels: ['Pay', 'Shipped'],
-    steps: [
-      { title: 'Pay', description: 'Pay CardMarket directly' },
-      { title: 'Shipped', description: 'Await shipment' },
-    ],
-    notice: 'CardMarket handles the entire transaction directly with you',
+  cm: {
+    name: 'Cardmarket',
+    tag: 'CARDMKT',
+    color: 'red',
+    buyerFee: '~2%',
+    sellerFee: '5%',
+    shipping: 'EU: free · Int: varies',
+    steps: ['confirm', 'pay', 'we-buy', 'shipped'],
+    stepLabels: ['Confirm', 'Pay Us', 'We Buy', 'Shipped'],
+    notice:
+      'We buy this from Cardmarket on your behalf. EU shipping is typically fast with no customs. International may vary.',
+    processTitle: 'Buy via Cardmarket (on your behalf)',
   },
-}
+} as const
+
+export type PlatformKey = keyof typeof PLATFORMS

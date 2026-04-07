@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CardWithRelations } from 'A/types'
+import { CardWithRelations } from '@/types'
 import { ListingsTable } from './ListingsTable'
 import { OffersPanel } from './OffersPanel'
 import { PriceChart } from './PriceChart'

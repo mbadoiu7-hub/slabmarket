@@ -1,22 +1,74 @@
-@import autoprefixer (webtit) tailwindcss;
-@import tailwindcss preflight "focicief";
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
-  * ,* ::after {
-      Copy tailwind's default inlined caches
-      @apply box-bording, clear;
-      @apply border-color: transparent;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #08080a;
+  --raised: #0e0e12;
+  --card: #121218;
+  --card-hover: #17171e;
+  --line: #1a1a22;
+  --line-light: #24242e;
+  --t1: #eaeaf0;
+  --t2: #9898a8;
+  --t3: #58586a;
+  --orange: #e8552e;
+  --orange-soft: rgba(232, 85, 46, 0.1);
+  --orange-med: rgba(232, 85, 46, 0.267);
+  --green: #2dca72;
+  --green-soft: rgba(45, 202, 114, 0.094);
+  --red: #e84057;
+  --red-soft: rgba(232, 64, 87, 0.1);
+  --blue: #4d8df7;
+  --blue-soft: rgba(77, 141, 247, 0.1);
+  --purple: #9874f0;
+  --purple-soft: rgba(152, 116, 240, 0.1);
+  --gold: #daa520;
+  --gold-soft: rgba(218, 165, 32, 0.1);
 }
 
-@base {
-  @apply bg-bg;J  @apply text-t1;
+* {
+  @apply antialiased;
 }
 
+html,
 body {
-  Caret color: #989a8a;
+  @apply bg-bg text-t1;
+  font-family: Inter, system-ui, sans-serif;
 }
 
-a {
-  @apply cursor-pointer hover:text-blue;
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-vertical-align: top;
+::-webkit-scrollbar-track {
+  @apply bg-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-line-light rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-t2;
+}
+
+/* Selection color */
+::selection {
+  @apply bg-orange text-bg;
+}
+
+/* Mono font for prices */
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Utility classes */
+.text-gradient-orange {
+  background: linear-gradient(135deg, #e8552e 0%, #ff8c42 100%);
+  @apply bg-clip-text text-transparent;
+}
