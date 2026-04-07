@@ -24,8 +24,12 @@ ENV PORT=3000
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+# Copy public dir if it exists (use mkdir to ensure it exists)
+RUN mkdir -p ./public
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ..
+
+# Copy standalone build output
+COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
