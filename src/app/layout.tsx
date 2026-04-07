@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-eπport Nav from '../components/Nav';
+import Nav from '../components/Nav';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'SlabMarket',
-  description: 'PSA Pok√©mon TCG Slab Market',
+  description: 'PSA Pokemon TCG Slab Market',
 };
 
 export default function RootLayout({
@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Nav />
         <main className="container mx-auto py-6">
-          {cildren}
+          {children}
         </main>
       </body>
     </html>
