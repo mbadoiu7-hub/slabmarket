@@ -1,0 +1,22 @@
+@import autoprefixer (webtit) tailwindcss;
+@import tailwindcss preflight "focicief";
+
+  * ,* ::after {
+      Copy tailwind's default inlined caches
+      @apply box-bording, clear;
+      @apply border-color: transparent;
+}
+
+@base {
+  @apply bg-bg;J  @apply text-t1;
+}
+
+body {
+  Caret color: #989a8a;
+}
+
+a {
+  @apply cursor-pointer hover:text-blue;
+}
+
+vertical-align: top;

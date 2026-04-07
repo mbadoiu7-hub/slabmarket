@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Card {
+  id          String    @id @default(cuid())
+  name        String
+  set         String
+  number      String
+  year        Int
+  edition     String    // "1st Edition", "Unlimited", "Shadowless", etc
+  variant     String    @default("Holo") // "Holo", "Non-Holo", "Reverse", "Ex", etc
+  imageUrl    String
+  slug        String    @unique
+  floorPrice  Float     @default(0)
+  topBid      Float     @default(0)
+  volume24h   Float     @default(0)
+  change24h   Float     @default(0)
+  lastSale    Float     @default(0)
+  listingCount Int      @default(0)
+  offerCount  Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  listings       Listing[]
+  priceSnapshots PriceSnapshot[]
+  offers         Offer[]
+  nativeListings NativeListing[]
+  activities     Activity[]
+}
+
+model Listing {
+  id        String   @id @default(cuid())
+  cardId    String
+  card      Card     @relation(fields: [cardId], references: [id])
+  platform  String   // "slab", "ebay", "pwcc", "cm"
+  price     Float    // in EUR
+  currency  String   @default("EUR")
+  url       String   @default("")
+  cert      String
+  grade     String   @default("PSA 10")
+  edition   String
+  buyerFee  String   @default("0%")
+  sellerFee String   @default("1%")
+  isBest    Boolean  @default(false)
+  scrapedAt DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  orders Order[]
+}
+
+model PriceSnapshot {
+  id     String   @id @default(cuid())
+  cardId String
+  card   Card     @relation(fields: [cardId], references: [id])
+  price  Float
+  date   DateTime @default(now())
+}
+
+model Offer {
+  id        String   @id @default(cuid())
+  cardId    String
+  card      Card     @relation(fields: [cardId], references: [id])
+  bidder    String
+  avatar    String   @default("")
+  avatarColor String @default("#9874f0")
+  rating    Float    @default(5.0)
+  trades    Int      @default(0)
+  amount    Float
+  vsFloor   Float    // percentage, e.g. -4.8
+  placedAt  DateTime @default(now())
+  expiresAt DateTime
+  isTop     Boolean  @default(false)
+}
+
+model Order {
+  id              String   @id @default(cuid())
+  listingId       String
+  listing         Listing  @relation(fields: [listingId], references: [id])
+  buyerEmail      String
+  status          String   @default("pending") // pending, paid, purchasing, shipped, delivered
+  stripePaymentId String?
+  totalPaid       Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model NativeListing {
+  id        String   @id @default(cuid())
+  cardId    String
+  card      Card     @relation(fields: [cardId], references: [id])
+  sellerEmail String
+  grade     String   @default("PSA 10")
+  cert      String
+  price     Float
+  photos    String[] // URLs
+  status    String   @default("active") // active, sold, removed
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Activity {
+  id       String   @id @default(cuid())
+  cardId   String
+  card     Card     @relation(fields: [cardId], references: [id])
+  cardSlug String
+  type     String   // "sale", "listing", "offer", "transfer"
+  platform String
+  price    Float
+  from     String   @default("")
+  to       String   @default("")
+  time     DateTime @default(now())
+}
