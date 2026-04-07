@@ -17,7 +17,6 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-ENV PORT=3000
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 RUN mkdir -p ./public
@@ -30,4 +29,4 @@ COPY --from=deps /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=deps /app/node_modules/prisma ./node_modules/prisma
 USER nextjs
 EXPOSE 3000
-CMD ["sh", "-c", "./node_modules/.bin/prisma db push --skip-generate && node server.js"]
+CMD ["sh", "-c", "node node_modules/prisma/build/index.js db push --skip-generate --accept-data-loss || true && node server.js"]
