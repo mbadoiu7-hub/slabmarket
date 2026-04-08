@@ -11,9 +11,7 @@ interface ListingsTableProps {
 }
 
 export function ListingsTable({ card }: ListingsTableProps) {
-  const [selectedListing, setSelectedListing] = useState<ListingType | null>(
-    null
-  )
+  const [selectedListing, setSelectedListing] = useState<ListingType | null>(null)
 
   const platformConfig: Record<string, any> = {
     slab: { tag: 'SLAB', bg: 'bg-orange', textColor: 'text-bg' },
@@ -26,28 +24,67 @@ export function ListingsTable({ card }: ListingsTableProps) {
 
   return (
     <>
-      <div className="overflow-x-auto">
+      {/* Mobile: card-based layout */}
+      <div className="space-y-2 md:hidden">
+        {sortedListings.map((listing) => {
+          const config = platformConfig[listing.platform] || {
+            tag: listing.platform.toUpperCase(),
+            bg: 'bg-t3',
+            textColor: 'text-bg',
+          }
+
+          return (
+            <div
+              key={listing.id}
+              className={`rounded-lg border bg-card p-3 ${
+                listing.isBest ? 'border-green bg-green bg-opacity-5' : 'border-line'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <span className={`px-2 py-0.5 rounded text-xs font-bold ${config.bg} ${config.textColor}`}>
+                    {config.tag}
+                  </span>
+                  {listing.isBest && (
+                    <span className="text-xs font-bold text-green">BEST</span>
+                  )}
+                </div>
+                <span className="font-mono text-xs text-t3">
+                  {timeAgo(listing.createdAt)}
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-mono text-lg font-bold text-orange">
+                    {formatPrice(listing.price)}
+                  </p>
+                  <p className="font-mono text-xs text-t3">
+                    Fee: {listing.buyerFee} Â· Cert: {listing.cert}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSelectedListing(listing)}
+                  className="px-4 py-2 rounded-lg bg-orange text-bg font-bold text-sm hover:opacity-90 transition-opacity"
+                >
+                  Buy
+                </button>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Desktop: table layout */}
+      <div className="hidden md:block overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-line">
-              <th className="px-4 py-3 text-left font-mono font-bold text-t3 text-xs uppercase">
-                Platform
-              </th>
-              <th className="px-4 py-3 text-right font-mono font-bold text-t3 text-xs uppercase">
-                Price
-              </th>
-              <th className="px-4 py-3 text-right font-mono font-bold text-t3 text-xs uppercase">
-                Fees
-              </th>
-              <th className="px-4 py-3 text-left font-mono font-bold text-t3 text-xs uppercase">
-                Cert
-              </th>
-              <th className="px-4 py-3 text-left font-mono font-bold text-t3 text-xs uppercase">
-                Listed
-              </th>
-              <th className="px-4 py-3 text-right font-mono font-bold text-t3 text-xs uppercase">
-                Action
-              </th>
+              <th className="px-4 py-3 text-left font-mono font-bold text-t3 text-xs uppercase">Platform</th>
+              <th className="px-4 py-3 text-right font-mono font-bold text-t3 text-xs uppercase">Price</th>
+              <th className="px-4 py-3 text-right font-mono font-bold text-t3 text-xs uppercase">Fees</th>
+              <th className="px-4 py-3 text-left font-mono font-bold text-t3 text-xs uppercase">Cert</th>
+              <th className="px-4 py-3 text-left font-mono font-bold text-t3 text-xs uppercase">Listed</th>
+              <th className="px-4 py-3 text-right font-mono font-bold text-t3 text-xs uppercase">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -57,11 +94,6 @@ export function ListingsTable({ card }: ListingsTableProps) {
                 bg: 'bg-t3',
                 textColor: 'text-bg',
               }
-              const totalPrice =
-                listing.price +
-                (listing.buyerFee
-                  ? parseFloat(listing.buyerFee.replace('%', '')) / 100 * listing.price
-                  : 0)
 
               return (
                 <tr
@@ -72,28 +104,20 @@ export function ListingsTable({ card }: ListingsTableProps) {
                 >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <span
-                        className={`px-2 py-1 rounded text-xs font-bold ${config.bg} ${config.textColor}`}
-                      >
+                      <span className={`px-2 py-1 rounded text-xs font-bold ${config.bg} ${config.textColor}`}>
                         {config.tag}
                       </span>
                       {listing.isBest && (
-                        <span className="text-xs font-bold text-green">
-                          BEST
-                        </span>
+                        <span className="text-xs font-bold text-green">BEST</span>
                       )}
                     </div>
                   </td>
                   <td className="px-4 py-3 text-right font-mono font-bold text-orange">
                     {formatPrice(listing.price)}
                   </td>
-                  <td className="px-4 py-3 text-right font-mono text-t2">
-                    {listing.buyerFee}
-                  </td>
+                  <td className="px-4 py-3 text-right font-mono text-t2">{listing.buyerFee}</td>
                   <td className="px-4 py-3 font-mono text-t1">{listing.cert}</td>
-                  <td className="px-4 py-3 text-t2">
-                    {timeAgo(listing.createdAt)}
-                  </td>
+                  <td className="px-4 py-3 text-t2">{timeAgo(listing.createdAt)}</td>
                   <td className="px-4 py-3 text-right">
                     <button
                       onClick={() => setSelectedListing(listing)}
