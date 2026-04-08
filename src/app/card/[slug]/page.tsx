@@ -57,20 +57,20 @@ export default async function CardDetail({
             href="/"
             className="inline-flex items-center gap-2 font-mono text-sm text-t2 hover:text-orange transition-colors"
           >
-            ← Collections
+            â Collections
           </Link>
         </div>
       </div>
 
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
         {/* Hero */}
-        <div className="mb-12 grid grid-cols-1 gap-8 lg:grid-cols-[340px_1fr]">
+        <div className="mb-8 md:mb-12 grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-[340px_1fr]">
           {/* Card Image */}
-          <div className="flex items-center justify-center rounded-xl border border-line bg-card p-6 min-h-[440px]">
+          <div className="flex items-center justify-center rounded-xl border border-line bg-card p-4 md:p-6 min-h-[280px] md:min-h-[440px]">
             <img
               src={card.imageUrl}
               alt={card.name}
-              className="w-[220px] drop-shadow-2xl hover:scale-[1.04] hover:-rotate-[0.5deg] transition-transform duration-500"
+              className="w-[160px] md:w-[220px] drop-shadow-2xl hover:scale-[1.04] hover:-rotate-[0.5deg] transition-transform duration-500"
             />
           </div>
 
@@ -88,17 +88,17 @@ export default async function CardDetail({
               )}
               {bestListing && (
                 <span className="rounded px-2 py-1 font-mono text-xs font-bold bg-orange text-white">
-                  ★ BEST DEAL
+                  â BEST DEAL
                 </span>
               )}
             </div>
 
             {/* Name */}
-            <h1 className="text-[1.9rem] font-black leading-tight tracking-tight text-t1">
+            <h1 className="text-xl md:text-[1.9rem] font-black leading-tight tracking-tight text-t1">
               {card.name}
             </h1>
-            <p className="text-sm text-t2">
-              {card.set} · #{card.number} · {card.variant} · {card.year}
+            <p className="text-xs md:text-sm text-t2">
+              {card.set} Â· #{card.number} Â· {card.variant} Â· {card.year}
             </p>
 
             {/* Floor Price Box */}
@@ -115,7 +115,7 @@ export default async function CardDetail({
                   <span className={bestListing.buyerFee === '0%' ? 'text-green font-semibold' : ''}>
                     {bestListing.buyerFee}
                   </span>
-                  {' '}· via {bestPlatform}
+                  {' '}Â· via {bestPlatform}
                 </p>
               )}
             </div>
@@ -139,7 +139,7 @@ export default async function CardDetail({
             {/* Buttons */}
             <div className="flex gap-2 mt-1">
               <button className="flex-1 rounded-lg bg-orange px-6 py-3 font-bold text-white transition-opacity hover:opacity-85">
-                Buy Floor — {formatPrice(card.floorPrice)}
+                Buy Floor â {formatPrice(card.floorPrice)}
               </button>
               <button className="rounded-lg border border-line px-6 py-3 font-bold text-t2 transition-colors hover:border-orange hover:text-orange">
                 Watch
