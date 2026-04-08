@@ -45,8 +45,8 @@ export default async function Home() {
 
   const tickerStats = [
     { label: 'Listings', value: totalListings.toLocaleString() },
-    { label: '24h Volume', value: `€${Math.round(totalVolume).toLocaleString()}` },
-    { label: 'Avg Floor', value: `€${avgFloor.toLocaleString()}` },
+    { label: '24h Volume', value: `â¬${Math.round(totalVolume).toLocaleString()}` },
+    { label: 'Avg Floor', value: `â¬${avgFloor.toLocaleString()}` },
     { label: 'Sellers', value: Math.floor(totalListings / 3).toLocaleString() },
     { label: 'Cards', value: allCards.length.toString() },
     {
@@ -60,11 +60,11 @@ export default async function Home() {
     <div className="min-h-screen bg-bg">
       <Ticker stats={tickerStats} />
 
-      <div className="mx-auto max-w-7xl px-4 py-8">
+      <div className="mx-auto max-w-7xl px-4 py-6 md:py-8">
         {/* Trending */}
-        <div className="mb-12">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-mono text-lg font-bold text-t1">
+        <div className="mb-8 md:mb-12">
+          <div className="mb-3 md:mb-4 flex items-center justify-between">
+            <h2 className="font-mono text-sm md:text-lg font-bold text-t1">
               Trending by 24h Change
             </h2>
           </div>
@@ -72,17 +72,17 @@ export default async function Home() {
         </div>
 
         {/* Top Offers */}
-        <div className="mb-12">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-mono text-lg font-bold text-t1">Top Offers</h2>
+        <div className="mb-8 md:mb-12">
+          <div className="mb-3 md:mb-4 flex items-center justify-between">
+            <h2 className="font-mono text-sm md:text-lg font-bold text-t1">Top Offers</h2>
           </div>
           <OffersStrip cards={topOffers} />
         </div>
 
         {/* Volume Table */}
         <div>
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="font-mono text-lg font-bold text-t1">
+          <div className="mb-3 md:mb-4 flex items-center justify-between">
+            <h2 className="font-mono text-sm md:text-lg font-bold text-t1">
               Biggest Volume
             </h2>
           </div>
