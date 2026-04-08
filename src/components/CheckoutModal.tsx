@@ -57,18 +57,18 @@ export function CheckoutModal({
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-      <div className="relative w-full max-w-2xl rounded-lg bg-card border border-line overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black bg-opacity-50 md:p-4">
+      <div className="relative w-full md:max-w-2xl rounded-t-xl md:rounded-lg bg-card border border-line overflow-hidden max-h-[90vh] md:max-h-[85vh] overflow-y-auto">
         {/* Header */}
-        <div className="border-b border-line bg-raised px-6 py-4">
-          <h2 className="font-sans text-xl font-bold text-t1">
+        <div className="border-b border-line bg-raised px-4 md:px-6 py-4 sticky top-0 z-10">
+          <h2 className="font-sans text-lg md:text-xl font-bold text-t1 pr-8">
             {platformConfig.processTitle}
           </h2>
           <p className="text-sm text-t2 mt-1">{card.name}</p>
         </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="p-4 md:p-6">
           {!isComplete ? (
             <>
               {/* Step Indicators */}
@@ -177,7 +177,7 @@ export function CheckoutModal({
             </>
           ) : (
             <div className="text-center py-8">
-              <div className="mb-4 text-4xl">✓</div>
+              <div className="mb-4 text-4xl">â</div>
               <h3 className="font-sans text-lg font-bold text-t1 mb-2">
                 Order Confirmed
               </h3>
@@ -204,7 +204,7 @@ export function CheckoutModal({
             onClick={onClose}
             className="absolute top-4 right-4 text-t2 hover:text-t1 transition-colors"
           >
-            ✕
+            â
           </button>
         )}
       </div>
